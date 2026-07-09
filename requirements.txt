@@ -1,0 +1,14 @@
+opencv-python>=4.10.0
+numpy>=1.26.0
+pillow>=10.0.0
+scikit-learn>=1.5.0
+joblib>=1.4.0
+torch>=2.2.0
+torchvision>=0.17.0
+tqdm>=4.66.0
+optuna>=3.5.0
+hyperopt>=0.28.0
+exifread>=1.0.1
+imbalanced-learn>=0.12.0
+scipy>=1.14.0
+#endif>

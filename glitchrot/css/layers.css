@@ -1,0 +1,55 @@
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)),
+    url('../assets/bg-industrial.webp');
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
+.monster-wrapper {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  top: 80px;
+  z-index: 20;
+}
+
+.monster {
+  width: 700px;
+  filter:
+    drop-shadow(0 0 40px rgba(183,255,0,0.3))
+    drop-shadow(0 0 120px rgba(183,255,0,0.1));
+}
+
+.fog {
+  position: absolute;
+  opacity: 0.35;
+  z-index: 15;
+  mix-blend-mode: screen;
+}
+
+.fog-left {
+  left: 0;
+  bottom: 0;
+  width: 600px;
+}
+
+.fog-right {
+  right: 0;
+  top: 180px;
+  width: 500px;
+}
+
+.corrosion-overlay {
+  position: fixed;
+  inset: 0;
+  background: url('../assets/corrosion-overlay.webp');
+  background-size: cover;
+  opacity: 0.25;
+  z-index: 50;
+  pointer-events: none;
+}

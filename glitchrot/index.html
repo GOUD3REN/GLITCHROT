@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GLITCHROT</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <div class="stage" aria-label="GLITCHROT forensic analyzer interface">
+    <div class="layer bg-industrial"></div>
+    <div class="layer noise-layer"></div>
+    <div class="layer corrosion-layer"></div>
+    <div class="layer scratches-layer"></div>
+    <div class="layer glow-layer"></div>
+    <div class="layer fog-left"></div>
+    <div class="layer fog-right"></div>
+    <canvas id="particleCanvas" class="particle-canvas"></canvas>
+
+    <header class="topbar">
+      <div class="brand">
+        <img src="./assets/biohazard-keyed.png" alt="" class="brand-mark" />
+        <span>GLITCHROT</span>
+      </div>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#">ANALYZER</a>
+        <a href="#">REPORTS</a>
+        <a href="#">ABOUT</a>
+        <a href="#">DOCS</a>
+        <a href="#">API</a>
+      </nav>
+      <div class="system-state">
+        <span>SYSTEM STATUS</span>
+        <i></i>
+        <button type="button">ONLINE</button>
+        <b>&gt;</b>
+      </div>
+    </header>
+
+    <main class="interface-grid">
+      <aside class="left-panel panel-frame">
+        <div class="engine-copy">
+          <span>GLITCHROT v2.7.1</span>
+          <span>FORENSIC ENGINE</span>
+          <span>BUILD 0425</span>
+        </div>
+
+        <img src="./assets/biohazard-keyed.png" alt="" class="biohazard-large" />
+
+        <section class="core-systems">
+          <h2>CORE SYSTEMS</h2>
+          <ul>
+            <li><span>VISION ANALYZER</span><strong>ONLINE</strong></li>
+            <li><span>PATTERN RECOGNIZER</span><strong>ONLINE</strong></li>
+            <li><span>META INSPECTOR</span><strong>ONLINE</strong></li>
+            <li><span>SYNTHETIC SCANNER</span><strong>ONLINE</strong></li>
+            <li><span>THREAT DETECTOR</span><strong>ONLINE</strong></li>
+          </ul>
+        </section>
+
+        <section class="signal">
+          <h2>SIGNAL INTEGRITY</h2>
+          <div class="signal-value">98.7%</div>
+          <div class="bar-graph" aria-hidden="true">
+            <span style="height:34%"></span><span style="height:58%"></span><span style="height:43%"></span>
+            <span style="height:68%"></span><span style="height:36%"></span><span style="height:52%"></span>
+            <span style="height:77%"></span><span style="height:49%"></span><span style="height:62%"></span>
+            <span style="height:88%"></span><span style="height:41%"></span><span style="height:70%"></span>
+            <span style="height:55%"></span><span style="height:91%"></span><span style="height:47%"></span>
+            <span style="height:78%"></span><span style="height:63%"></span><span style="height:95%"></span>
+            <span style="height:54%"></span><span style="height:73%"></span><span style="height:86%"></span>
+            <span style="height:50%"></span><span style="height:67%"></span><span style="height:82%"></span>
+          </div>
+        </section>
+
+        <section class="threat">
+          <h2>THREAT LEVEL</h2>
+          <div class="threat-row">
+            <strong>ELEVATED</strong>
+            <img src="./assets/biohazard-keyed.png" alt="" />
+          </div>
+          <div class="threat-blocks" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </section>
+
+        <p class="panel-footer">ALL SYSTEMS MONITORED<br />BY GLITCHROT CORE</p>
+      </aside>
+
+      <section class="hero">
+        <img src="./assets/monster-keyed.png" alt="" class="monster" />
+        <div class="title-stack">
+          <h1 data-text="GLITCHROT">GLITCHROT</h1>
+          <h2>DETECT SYNTHETIC IMAGES<br />BEFORE THEY DECEIVE YOU</h2>
+          <p>Advanced forensic analysis for AI-generated image detection.</p>
+        </div>
+
+        <section class="upload-terminal">
+          <div class="terminal-head">
+            <span>// IA BIO-FORENSIC TERMINAL</span>
+            <span>DROP ZONE_01</span>
+          </div>
+          <button class="drop-zone" type="button" aria-label="Select image for analysis">
+            <span class="upload-icon"></span>
+            <strong>DRAG &amp; DROP IMAGE HERE</strong>
+            <em>OR CLICK TO SELECT FILE</em>
+          </button>
+          <div class="terminal-foot">
+            <span>SUPPORTS: <b>JPG / PNG / WEBP / BMP</b></span>
+            <span>MAX SIZE: 50MB</span>
+          </div>
+        </section>
+
+        <button class="analyze-btn" type="button">INITIATE ANALYSIS</button>
+        <div class="standby-line"><span>&gt; SYSTEM STANDBY</span><i></i></div>
+      </section>
+
+      <aside class="report-panel panel-frame">
+        <h2>// FORENSIC REPORT</h2>
+        <div class="report-block status-block">
+          <small>STATUS</small>
+          <strong>AWAITING ANALYSIS</strong>
+          <span>Initialization required</span>
+        </div>
+        <div class="report-block probability">
+          <small>AI PROBABILITY</small>
+          <strong>--,-- %</strong>
+          <div class="meter"><span></span></div>
+        </div>
+        <div class="report-block">
+          <small>ANOMALIES</small>
+          <strong>--</strong>
+          <div class="report-lines"><i></i><i></i><i></i></div>
+        </div>
+        <div class="report-block">
+          <small>META ANALYSIS</small>
+          <strong>--</strong>
+          <div class="report-lines"><i></i><i></i></div>
+        </div>
+        <div class="report-block">
+          <small>THREAT ASSESSMENT</small>
+          <strong>--</strong>
+          <div class="report-lines"><i></i><i></i><i></i></div>
+        </div>
+        <div class="report-footer">
+          <span>REPORT ID: --</span>
+          <span>TIME: --:--:--</span>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="network-copy">
+      <span>GLITCHROT FORENSIC NETWORK</span>
+      <strong>HUNT &gt; DETECT &gt; EXPOSE</strong>
+    </footer>
+
+    <div class="scanlines"></div>
+    <div class="crt"></div>
+  </div>
+  <script src="./js/main.js"></script>
+</body>
+</html>
