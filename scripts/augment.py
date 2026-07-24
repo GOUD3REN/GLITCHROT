@@ -1,14 +1,3 @@
-"""
-Data augmentation script for the PixProof project.
-
-Creates 3 augmented versions of each image in the `real/` and `fake/`
-folders, saving them under `augmented_real/` and `augmented_fake/`
-respectively.
-
-Usage:
-    python scripts/augment.py
-"""
-
 import pathlib
 import random
 from PIL import Image, ImageEnhance, ImageOps, GaussianBlur
