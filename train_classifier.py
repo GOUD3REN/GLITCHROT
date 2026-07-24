@@ -1,7 +1,3 @@
-"""
-Full training pipeline – deep embeddings + metadata + Optuna tuned RandomForest.
-"""
-
 # ----------------------------------------------------------------------
 # 1️⃣  IMPORTS
 # ----------------------------------------------------------------------
@@ -60,12 +56,6 @@ def _find_subfolder(root: Path, name_lower: str) -> Path:
 # 4️⃣ RUN OPTUNA (hyper‑parameter search)
 # --------------------------------------------------------------
 def run_optuna(cfg: dict, emb_real, paths_real, emb_fake, paths_fake):
-    """
-    Perform hyper‑parameter optimisation for the RandomForest classifier.
-    This version guarantees that real and fake embeddings have the same
-    number of samples before any concatenation, avoiding shape mismatches,
-    and uses a safe CV value (2) when the dataset is tiny.
-    """
     # ------------------------------------------------------------------
     # Determine the minimum number of samples between the two classes
     # ------------------------------------------------------------------
