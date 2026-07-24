@@ -1,7 +1,3 @@
-"""
-Feature extraction utilities for the PixProof image‑authentication pipeline.
-"""
-
 # ----------------------------------------------------------------------
 # 0️⃣ IMPORTS
 # ----------------------------------------------------------------------
@@ -100,9 +96,6 @@ def extract_metadata_features(p: Path) -> np.ndarray:
 # 5️⃣ CLEAN‑UP HOOK
 # ----------------------------------------------------------------------
 def close_hooks():
-    """
-    Remove the forward hook registered on the backbone.
-    """
     global _PENULTIMATE_HOOK
     if _PENULTIMATE_HOOK is not None:
         _PENULTIMATE_HOOK.remove()
