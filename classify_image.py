@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-"""
-Simple inference script – loads the calibrated model and predicts.
-"""
 
 import argparse, joblib, numpy as np, sys
 from pathlib import Path
