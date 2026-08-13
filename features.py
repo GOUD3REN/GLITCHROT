@@ -8,7 +8,7 @@ import tqdm
 from PIL import Image, ImageOps
 
 # ----------------------------------------------------------------------
-#PREPROCESSING + BACKBONE
+#   PREPROCESSING + BACKBONE
 # ----------------------------------------------------------------------
 _IMAGENET_MEAN = [0.485, 0.456, 0.406]
 _IMAGENET_STD  = [0.229, 0.224, 0.225]
@@ -24,7 +24,7 @@ _BACKBONE = models.efficientnet_b3(weights=models.EfficientNet_B3_Weights.IMAGEN
 _BACKBONE.eval()
 
 # ----------------------------------------------------------------------
-#SINGLE IMAGE LOADER
+#   SINGLE IMAGE LOADER
 # ----------------------------------------------------------------------
 def load_image(p: Path) -> torch.Tensor:
     """Open, resize to 224×224 and normalise a PIL image."""
@@ -35,7 +35,7 @@ def load_image(p: Path) -> torch.Tensor:
         return T.ToTensor()(img)   # shape = (3, 224, 224)
 
 # ----------------------------------------------------------------------
-#EMBEDDING EXTRACTION
+#    EMBEDDING EXTRACTION
 # ----------------------------------------------------------------------
 # Hook variable (global) that will hold the penultimate activation
 _embedding_buffer = torch.empty(0)
@@ -74,7 +74,7 @@ def get_embeddings_from_folder(folder: Path) -> tuple[np.ndarray, list[Path]]:
     return np.stack(embeddings), paths
 
 # ----------------------------------------------------------------------
-#METADATA (EXIF / PRNU) FEATURES
+#    METADATA (EXIF / PRNU) FEATURES
 # ----------------------------------------------------------------------
 def extract_metadata_features(p: Path) -> np.ndarray:
     """
@@ -90,7 +90,7 @@ def extract_metadata_features(p: Path) -> np.ndarray:
         return np.zeros((1,), dtype=np.float32)
 
 # ----------------------------------------------------------------------
-#CLEAN‑UP HOOK
+#   CLEAN‑UP HOOK
 # ----------------------------------------------------------------------
 def close_hooks():
     global _PENULTIMATE_HOOK
