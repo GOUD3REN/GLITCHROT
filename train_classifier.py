@@ -1,6 +1,3 @@
-# ----------------------------------------------------------------------
-# 1️⃣  IMPORTS
-# ----------------------------------------------------------------------
 import argparse
 import os
 import yaml
@@ -30,7 +27,7 @@ from features import (               # <-- ALL FUNCTIONS ARE NOW AVAILABLE
 )
 
 # ----------------------------------------------------------------------
-# 2️⃣ CONFIG LOADER
+#CONFIG LOADER
 # ----------------------------------------------------------------------
 def load_cfg(cfg_path: Path) -> dict:
     """Load a YAML config file using UTF-8 (fixes accent issues)."""
@@ -39,7 +36,7 @@ def load_cfg(cfg_path: Path) -> dict:
         return yaml.safe_load(f)
 
 # ----------------------------------------------------------------------
-# 3️⃣ FIND SUB‑FOLDER (case‑insensitive)
+#FIND SUB‑FOLDER (case‑insensitive)
 # ----------------------------------------------------------------------
 def _find_subfolder(root: Path, name_lower: str) -> Path:
     """Return the sub‑directory whose name matches name_lower (case‑insensitive)."""
@@ -53,7 +50,7 @@ def _find_subfolder(root: Path, name_lower: str) -> Path:
     )
 
 # ----------------------------------------------------------------------
-# 4️⃣ RUN OPTUNA (hyper‑parameter search)
+#     RUN OPTUNA (hyper‑parameter search)
 # --------------------------------------------------------------
 def run_optuna(cfg: dict, emb_real, paths_real, emb_fake, paths_fake):
     # ------------------------------------------------------------------
@@ -175,12 +172,12 @@ def run_optuna(cfg: dict, emb_real, paths_real, emb_fake, paths_fake):
     return best
 
 # ----------------------------------------------------------------------
-# 5️⃣ FINAL MODEL TRAINING
+#FINAL MODEL TRAINING
 # ----------------------------------------------------------------------
 def train_final(cfg: dict, best_params: dict, X, y):
     """Train the final calibrated model and persist artifacts."""
 
-    # 1️⃣ Train/validation split
+    #Train/validation split
     X_tr, X_te, y_tr, y_te = train_test_split(
         X,
         y,
@@ -189,7 +186,7 @@ def train_final(cfg: dict, best_params: dict, X, y):
         random_state=cfg["random_state"]
     )
 
-    # 2️⃣ Model + calibration
+    #Model + calibration
     clf = RandomForestClassifier(**best_params)
 
     cal = CalibratedClassifierCV(
@@ -199,7 +196,7 @@ def train_final(cfg: dict, best_params: dict, X, y):
     )
     cal.fit(X_tr, y_tr)
 
-    # 3️⃣ Validation metrics + optimal threshold
+    #Validation metrics + optimal threshold
     prob = cal.predict_proba(X_te)[:, 1]
 
     thr = np.linspace(0, 1, 200)
@@ -227,7 +224,7 @@ def train_final(cfg: dict, best_params: dict, X, y):
         )
     )
 
-    # 4️⃣ Persist artefacts
+    #Persist artefacts
     joblib.dump(cal, cfg["model_output_path"])
     np.save(cfg["best_threshold_path"], best_thr)
     joblib.dump(best_params, cfg["best_params_path"])
@@ -246,7 +243,7 @@ def train_final(cfg: dict, best_params: dict, X, y):
     return cal
 
 # ----------------------------------------------------------------------
-# 6️⃣ MAIN – PARSE ARGS, LOAD CFG, RUN PIPELINE
+#     MAIN – PARSE ARGS, LOAD CFG, RUN PIPELINE
 # ----------------------------------------------------------------------
 if __name__ == "__main__":
 
@@ -273,7 +270,7 @@ if __name__ == "__main__":
         cfg["dataset_root"] = str(args.dataset_root)
 
     # --------------------------------------------------------------
-    # 1️⃣ Locate the real/ fake sub‑folders (case‑insensitive)
+    #   Locate the real/ fake sub‑folders (case‑insensitive)
     # ------------------------------------------------------------------
     root = Path(cfg["dataset_root"])
 
@@ -290,13 +287,13 @@ if __name__ == "__main__":
     fake_dir = _find_subfolder(root, "fake")
 
     # --------------------------------------------------------------
-    # 1️⃣ Load embeddings
+    #   Load embeddings
     # --------------------------------------------------------------
     real_emb, real_paths = get_embeddings_from_folder(real_dir)
     fake_emb, fake_paths = get_embeddings_from_folder(fake_dir)
 
     # --------------------------------------------------------------
-    # 2️⃣ Hyper‑parameter optimisation
+    #   Hyper‑parameter optimisation
     # --------------------------------------------------------------
     best_params = run_optuna(
         cfg,
@@ -307,7 +304,7 @@ if __name__ == "__main__":
     )
 
     # --------------------------------------------------------------
-    # 3️⃣ Build final feature matrix (embeddings + metadata)
+    #   Build final feature matrix (embeddings + metadata)
     # --------------------------------------------------------------
     # Trim path lists to the smaller size so both classes match
     n_real = len(real_paths)
@@ -343,12 +340,12 @@ if __name__ == "__main__":
     y = np.array([0] * min_len + [1] * min_len)
 
     # --------------------------------------------------------------
-    # 4️⃣ Train final model
+    #   Train final model
     # --------------------------------------------------------------
     final_model = train_final(cfg, best_params, X, y)
 
     # ------------------------------------------------------------------
-    # 5️⃣ Clean up
+    #  Clean up
     # ----------------------------------------------------------------------
     close_hooks()
     print(
