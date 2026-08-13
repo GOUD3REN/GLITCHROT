@@ -1,4 +1,3 @@
 """
-PixProof API Package
-FastAPI endpoints para análise gratuita e certificação paga.
+GLITCHROT API Package
 """
