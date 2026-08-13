@@ -1,6 +1,3 @@
-# ----------------------------------------------------------------------
-# 0️⃣ IMPORTS
-# ----------------------------------------------------------------------
 from pathlib import Path
 import exifread
 import numpy as np
@@ -11,7 +8,7 @@ import tqdm
 from PIL import Image, ImageOps
 
 # ----------------------------------------------------------------------
-# 1️⃣ PREPROCESSING + BACKBONE
+#PREPROCESSING + BACKBONE
 # ----------------------------------------------------------------------
 _IMAGENET_MEAN = [0.485, 0.456, 0.406]
 _IMAGENET_STD  = [0.229, 0.224, 0.225]
@@ -27,7 +24,7 @@ _BACKBONE = models.efficientnet_b3(weights=models.EfficientNet_B3_Weights.IMAGEN
 _BACKBONE.eval()
 
 # ----------------------------------------------------------------------
-# 2️⃣ SINGLE IMAGE LOADER
+#SINGLE IMAGE LOADER
 # ----------------------------------------------------------------------
 def load_image(p: Path) -> torch.Tensor:
     """Open, resize to 224×224 and normalise a PIL image."""
@@ -38,7 +35,7 @@ def load_image(p: Path) -> torch.Tensor:
         return T.ToTensor()(img)   # shape = (3, 224, 224)
 
 # ----------------------------------------------------------------------
-# 3️ EMBEDDING EXTRACTION
+#EMBEDDING EXTRACTION
 # ----------------------------------------------------------------------
 # Hook variable (global) that will hold the penultimate activation
 _embedding_buffer = torch.empty(0)
@@ -57,7 +54,7 @@ def get_embedding(p: Path) -> np.ndarray:
     tensor = load_image(p).unsqueeze(0)      # (1, 3, 224, 224)
     global _embedding_buffer
     _embedding_buffer.zero_()
-    _ = _BACKBONE(tensor)                    # forward pass fires the hook
+    _ = _BACKBONE(tensor)
     embedding = _embedding_buffer.squeeze().cpu().numpy()
     return embedding
 
@@ -72,12 +69,12 @@ def get_embeddings_from_folder(folder: Path) -> tuple[np.ndarray, list[Path]]:
             paths.append(p)
         except Exception as e:                # pragma: no cover
             print(f"[WARN] Skipping {p}: {e}")
-    if not embeddings:                         # empty folder?
+    if not embeddings:
         return np.empty((0,)), []
     return np.stack(embeddings), paths
 
 # ----------------------------------------------------------------------
-# 4️⃣ METADATA (EXIF / PRNU) FEATURES
+#METADATA (EXIF / PRNU) FEATURES
 # ----------------------------------------------------------------------
 def extract_metadata_features(p: Path) -> np.ndarray:
     """
@@ -93,7 +90,7 @@ def extract_metadata_features(p: Path) -> np.ndarray:
         return np.zeros((1,), dtype=np.float32)
 
 # ----------------------------------------------------------------------
-# 5️⃣ CLEAN‑UP HOOK
+#CLEAN‑UP HOOK
 # ----------------------------------------------------------------------
 def close_hooks():
     global _PENULTIMATE_HOOK
