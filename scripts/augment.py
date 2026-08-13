@@ -7,25 +7,25 @@ def augment_image(in_path: pathlib.Path, out_dir: pathlib.Path):
     """Generate a single augmented version of the image at `in_path`."""
     img = Image.open(in_path)
 
-    # 1️⃣ Random rotation
+    #Random rotation
     angle = random.choice([-15, -10, -5, 0, 5, 10, 15])
     img = img.rotate(angle, expand=True)
 
-    # 2️⃣ Horizontal flip (50% chance)
+    #Horizontal flip (50% chance)
     if random.random() < 0.5:
         img = img.fliplr()
 
-    # 3️⃣ Brightness & contrast tweaks
+    #Brightness & contrast tweaks
     brightness_factor = random.uniform(0.7, 1.3)
     contrast_factor = random.uniform(0.7, 1.3)
     img = ImageEnhance.Brightness(img).enhance(brightness_factor)
     img = ImageEnhance.Contrast(img).enhance(contrast_factor)
 
-    # 4️⃣ Optional light Gaussian blur
+    #Optional light Gaussian blur
     if random.random() < 0.3:
         img = img.filter(GaussianBlur(radius=random.uniform(1, 2)))
 
-    # 5️⃣ Save with a unique suffix
+    #Save with a unique suffix
     suffix = random.randint(1, 9999)
     out_path = out_dir / f"{img_path.stem}_aug_{suffix}.png"
     img.save(out_path)
