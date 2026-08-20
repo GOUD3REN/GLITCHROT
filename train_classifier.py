@@ -275,13 +275,7 @@ if __name__ == "__main__":
     root = Path(cfg["dataset_root"])
 
     # Helper that finds a sub‑folder by name (case‑insensitive)
-    def _find_subfolder(root: Path, name_lower: str) -> Path:
-        for p in root.iterdir():
-            if p.is_dir() and p.name.lower() == name_lower:
-                return p
-        raise FileNotFoundError(
-            f'Could not find a sub-directory named "{name_lower}" under {root}.'
-        )
+    root = Path(cfg["dataset_root"])
 
     real_dir = _find_subfolder(root, "real")
     fake_dir = _find_subfolder(root, "fake")
