@@ -40,7 +40,7 @@ env/
 .DS_Store
 
 # Model files
-*.joblib
+#*.joblib
 *.pkl
 *.pth
 *.pt
