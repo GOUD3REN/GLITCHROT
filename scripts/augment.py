@@ -14,7 +14,7 @@ def augment_image(in_path: pathlib.Path, out_dir: pathlib.Path):
 
         #Horizontal flip (50% chance)
         if random.random() < 0.5:
-            img = ImageOps.mirror(img)  # ← FIXED: PIL uses mirror(), not fliplr()
+            img = ImageOps.mirror(img)
 
         #Brightness & contrast tweaks
         brightness_factor = random.uniform(0.7, 1.3)
@@ -28,7 +28,7 @@ def augment_image(in_path: pathlib.Path, out_dir: pathlib.Path):
 
         #Save with a unique suffix
         suffix = random.randint(1, 9999)
-        out_path = out_dir / f"{in_path.stem}_aug_{suffix}.png"  # ← FIXED: use in_path, not img_path
+        out_path = out_dir / f"{in_path.stem}_aug_{suffix}.png"
         img.save(out_path)
     except Exception as e:
         print(f"[WARN] Failed to augment {in_path}: {e}")
